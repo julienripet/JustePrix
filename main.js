@@ -14,13 +14,40 @@
 
 //-----------------------------------------------------------------------------------------------//
 
-let showMessage = "";
+let showMessage = "Enter a number";
 let numberOfTry= 0;
 let minValue= 20;
 let maxValue = 80;
 
 let randomValue = (min, max) =>{
-    Math.floor(Math.random()*max)+min;
+    return Math.floor(Math.random()*(max-min)+min);
 }
 
-let testValue = 
+let testValue = correctPrice => {
+    let guessedPrice = prompt(showMessage);
+    if (guessedPrice < correctPrice){
+        showMessage = "C'est plus";
+        return false;
+    } else {
+        if(guessedPrice > correctPrice){
+            showMessage="C'est moins";
+            return false;
+        } else {
+            if(guessedPrice == correctPrice){
+                showMessage = "C'est gagné!";
+                console.log(correctPrice);
+                return true;
+            } else{showMessage= "Valeur entrée non valide!"}
+        }
+    }
+}
+
+let main = actualPrice => {
+    if (testValue(actualPrice) == true){
+        console.log("CONGRATULATIONS");
+    } else {
+        main(actualPrice);
+    }
+}
+let realPrice = randomValue(minValue,maxValue);
+main(realPrice);
